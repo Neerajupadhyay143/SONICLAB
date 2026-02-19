@@ -24,7 +24,7 @@ function AppRoutes() {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<UserRegistration />} />
-                {/* <Route path="/forget" element={<Forget />} /> */}
+                <Route path="/forget" element={<Forget />} />
             </Route>
 
             {/* PROTECTED ROUTES */}
