@@ -9,6 +9,7 @@ import Forget from "../auth/Forget"
 import ProtectedRoute from "../Components/ProtectedRoutes/ProtectedRoute"
 import DashboardLayout from "../layouts/DashboardLayout"
 import { GuestRoute } from "../Components/GuestRoutes/GuestRoute"
+import UserDashboard from "../Pages/Dashboard/UserDashboard"
 
 function AppRoutes() {
     return (
@@ -30,7 +31,10 @@ function AppRoutes() {
             {/* PROTECTED ROUTES */}
             <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard/*" element={<DashboardLayout />} >
-
+                    <Route index element={
+                        <div className="pt-28">
+                            <UserDashboard />
+                        </div>} />
                 </Route>
             </Route>
 

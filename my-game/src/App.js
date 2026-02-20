@@ -1,9 +1,13 @@
+import { NotificationProvider } from "./context/NotificationContext";
 import Main from "./Main";
 
 function App() {
   return (
     <div >
-      <Main />
+      <NotificationProvider>
+        <Main />
+      </NotificationProvider>
+
     </div>
   );
 }
