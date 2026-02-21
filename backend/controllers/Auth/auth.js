@@ -7,12 +7,24 @@ const SECRET = process.env.JWT_SECRET_KEY
 // user regestration code 
 export const requestRegister = async (req, res) => {
 
-    const { name, email, password } = req.body;
-    const hashed = await bcrypt.hash(password, 10);
-    await pool.query(
-        "INSERT INTO users(name ,email,password) VALUES($1,$2,$3)", [name, email, hashed]
-    )
-    res.json({ message: 'user Registred!' });
+    try {
+
+        const { name, email, password } = req.body;
+        const hashed = await bcrypt.hash(password, 10);
+        const newUser = await pool.query(
+            `INSERT INTO users(name,email,password,plan) 
+             VALUES($1,$2,$3,$4) 
+             RETURNING id, name, email, plan`, [name, email, hashed, "free"]
+        )
+
+        res.status(200).json({
+            message: 'User registered successfully',
+            user: newUser.rows[0],
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server Error' });
+    }
 }
 
 // user LOGIN CODE 

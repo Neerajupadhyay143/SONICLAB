@@ -1,15 +1,20 @@
-import pool from "../db/db"
+import pool from "../db/db.js"
 
-export const getUser = async (req, res) => {
-
+const getUser = async (req, res) => {
     try {
-        const result = pool.query(
-            "SELECT name ,email FROM users WHERE id =$1",
+        const result = await pool.query(
+            "SELECT name ,email,plan FROM users WHERE id =$1",
             [req.user.id]
         )
-        const data = await res.json(result.rows[0]);
+        res.status(200).json({
+            message: "Users Details",
+            user: result.rows[0],
+        })
+
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'server Error' })
     }
 }
+
+export { getUser };

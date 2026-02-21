@@ -1,13 +1,7 @@
-const express = require('express');
+import express from "express";
+import { verifyToken } from "../controllers/Auth/verifyToken.js";
+import { getUser } from "../controllers/getUSer.js";
 const router = express.Router();
-const pool = require('../db/db')
-router.get('/', async (req, res) => {
-    const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows)
-    res.send('this is a user route');
-})
-router.get('/101', (req, res) => {
-    res.send('this is a 101 route ');
-})
+router.get('/', verifyToken, getUser)
 
-module.exports = router;
+export default router;
